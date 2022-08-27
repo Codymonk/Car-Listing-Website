@@ -1,0 +1,137 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UltraSpeed:- Car Specification</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="/public/css/style.css" />
+    <link rel="stylesheet" href="/css/form.css" />
+</head>
+
+<body>
+    <header class="header">
+        <div id="menu-btn" class="fas fa-bars"></div>
+
+        <a href="/index" class="logo"> <span>Ultra</span>Speed </a>
+
+        <nav class="navbar">
+            <a href="#home">home</a>
+            <a href="#featured">featured</a>
+            <a href="#contact">contact</a>
+            <a href="#footer">About Us</a>
+        </nav>
+
+        <div id="login-btn">
+            <button class="btn">login</button>
+            <i class="far fa-user"></i>
+        </div>
+    </header>
+
+    <h1>Admin Panel</h1>
+
+    <div class="container">
+        {{#if success_msg}}
+        <div class="alert alert-success" role="alert">
+            {{ success_msg}}
+        </div>
+        {{/if}}
+        <form action="/car/data" method="POST" enctype="multipart/form-data">
+
+            <label>Car Name</label>
+            <input type="text" id="carName" name="carName" placeholder="Enter car Name" />
+
+            <label>Car Price</label>
+            <input type="text" id="carPrice" name="carPrice" placeholder="Enter car Name" />
+
+            <label>Car Image</label>
+            <input type="file" id="carImage" name="images" placeholder="Upload car Image" /><br /><br />
+
+            <label>Car Fuel Type</label>
+            <input type="text" id="fuelType" name="carFuelType" placeholder="Fuel Type" /><br />
+
+            <label>Car Seating Capacity</label>
+            <input type="number" id="SeatingCapacity" name="seatingCapacityNo"
+                placeholder="Enter car SEATING Capacity" />            
+                
+            <label>Colours</label>
+            <textarea id="Colours" name="colours" placeholder="Car Colour" style="height:100px"></textarea>
+
+            <input type="submit" value="Submit" /><br />
+
+        </form>
+    </div>
+
+    {{!Edit / delete Table }}
+    <div class="container">
+        <h1>Edit Car List</h1>
+        <form action="/edit/:carName" method="POST">
+        {{#if update_msg}}
+        <div class="alert alert-primary" role="alert">
+            {{update_msg}}
+        </div>
+        {{/if}}
+            <label>Car Name</label>
+            <input type="text" id="carName" name="carName" value="{{formDB.carName}}" placeholder="Enter car Name" />
+            <label>Car Price</label>
+            <input type="number" id="carPrice" name="carPrice" placeholder="Enter car Price" />
+            <label>FUEL Type</label>
+            <input type="text" id="carFuelType" name="carFuelType" placeholder="Enter car Fuel Type" />
+            <label>Seating Capacity</label>
+            <input type="number" id="seatingCapacity" name="seatingCapacityNo"
+                placeholder="Enter car Seating Capacity" />
+            <label>Colours</label>
+            <textarea type="text" id="colours" name="colours" placeholder="Enter car Colours"></textarea>
+            <input id="btn" type="submit" value="Edit" /><br />
+        </form>
+        <br />
+
+        <h1>Data Table</h1>
+        {{#if delete_msg}}
+        <div class="alert alert-danger" role="alert">
+             {{delete_msg}}
+        </div>
+        {{/if}}
+        <table id="customers">
+            <tr>
+                <th>Car Name</th>
+                <th>Car Price</th>
+                <th>car Image</th>
+                <th>Fuel Type</th>
+                <th>Seat Capacity</th>
+                <th>colours</th>
+                <th>Buttons</th>
+            </tr>
+            {{#each formDB}}
+            <tr>
+                <td>{{this.carName}}</td>
+                <td>{{this.carPrice}}</td>
+                <td>{{this.carImage}}</td>
+                <td>{{this.carFuelType}}</td>
+                <td>{{this.seatingCapacityNo}}</td>
+                <td>{{this.colours}}</td>
+                <td>
+                    <a href="/{{this.carName}}"><button class="btn">Delete</button></a>
+                </td>
+            </tr>
+            {{/each}}
+        </table>
+
+    </div>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+      
+</body>
+
+</html>
